@@ -1,13 +1,14 @@
+//https://github.com/patriksimek/node-mssql/issues/155
 const oConfig = {
-    user: 'sa',
-    password: 'devuser',
-    server: 'GRIFF',
+    user: "sa",
+    password: "devuser",
+    server: "GRIFF",
     database: 'devdb',
     //port: 1433,
     debug: true,
     options: {
-        encrypt: false // Use this if you're on Windows Azure
-        ,instanceName: 'SQLEXPRESS'
+        encrypt: false, // Use this if you're on Windows Azure
+        instanceName: "SQLEXPRESS"
     }
 }
 

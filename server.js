@@ -1,15 +1,16 @@
 //server.js 5.0.0
 //Tutorial: Express | Node.js Framewokr, Curso Práctico Rápido Desde Cero
 //https://youtu.be/8eg4w8v076w?t=3012
-console.log("server.js 1.0.0","Tutorial: Express | Node.js Framewokr, Curso Práctico Rápido Desde Cero")
+const colors = require("colors")
 
+console.log("server.js 1.0.0","Tutorial: Express | Node.js Framewokr, Curso Práctico Rápido Desde Cero")
 const fnExpress = require("express")
 const oApp = fnExpress()
 const oRouter = require("./routes")
 const oRouterApi = require("./routes-api")
 
 const oConfig = require("./config/mssql")
-console.log(oConfig)
+console.log("oConfig".red,oConfig)
 
 const sql = require("mssql")
 
