@@ -10,8 +10,7 @@ const oRouter = require("./routes")
 const oRouterApi = require("./routes-api")
 
 const oConfig = require("./config/mssql")
-console.log("oConfig".red,oConfig)
-
+//console.log("oConfig".red,oConfig)
 const sql = require("mssql")
 
 //console.log("sql".green,sql)
@@ -26,6 +25,16 @@ sql.connect(oConfig).then(() => {
 sql.on('error', err => {
     // ... error handler
 })
+
+const oMongo = require("mongoose")
+oMongo.connection.openUri("mongodb://127.0.0.1/flamagas")
+const oConx = oMongo.connection;
+oConx.on("error", console.error.bind(console,'connection error:'));
+oConx.once("open",function() {
+  // we're connected!
+  console.log("Mongoose Success!!".yellow)
+});
+
 
 //SETTINGS https://youtu.be/8eg4w8v076w?t=3012
 //sirve para establecer las configuraciones de un motor de plantillas
