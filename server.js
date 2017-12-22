@@ -14,17 +14,19 @@ console.log("oConfig".red,oConfig)
 
 const sql = require("mssql")
 
+//console.log("sql".green,sql)
+sql.connect(oConfig).then(() => {
+    return sql.query`select * from accounts where code = '1'`
+}).then(result => {
+    console.dir(result)
+}).catch(err => {
+    // ... error checks
+})
+ 
+sql.on('error', err => {
+    // ... error handler
+})
 
-async () => {
-    try {
-        const pool = await sql.connect(oConfig)
-        const result = await sql.query`select * from accounts where id = 10`
-        console.dir(result)
-    } catch (err) {
-        console.log("Error checks".red)
-        // ... error checks
-    }
-}
 //SETTINGS https://youtu.be/8eg4w8v076w?t=3012
 //sirve para establecer las configuraciones de un motor de plantillas
 oApp.set("appName","Mi primer Servidor :)")
