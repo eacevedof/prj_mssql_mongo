@@ -9,7 +9,6 @@ const oApp = fnExpress()
 const oRouter = require("./routes")
 const oRouterApi = require("./routes-api")
 
-const oConfig = require("./config/mssql")
 //console.log("oConfig".red,oConfig)
 
 //SETTINGS https://youtu.be/8eg4w8v076w?t=3012

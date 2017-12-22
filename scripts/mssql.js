@@ -1,4 +1,5 @@
 const sql = require("mssql")
+const oConfig = require("../config/mssql")
 
 //console.log("sql".green,sql)
 sql.connect(oConfig).then(() => {
