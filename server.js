@@ -3,7 +3,7 @@
 //https://youtu.be/8eg4w8v076w?t=3012
 const colors = require("colors")
 
-console.log("server.js 1.0.0","Tutorial: Express | Node.js Framewokr, Curso Práctico Rápido Desde Cero")
+console.log("server.js 1.0.0","MSSQL TO MONGO")
 const fnExpress = require("express")
 const oApp = fnExpress()
 const oRouter = require("./routes")
