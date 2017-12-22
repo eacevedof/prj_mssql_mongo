@@ -11,20 +11,6 @@ const oRouterApi = require("./routes-api")
 
 const oConfig = require("./config/mssql")
 //console.log("oConfig".red,oConfig)
-const sql = require("mssql")
-
-//console.log("sql".green,sql)
-sql.connect(oConfig).then(() => {
-    return sql.query`select * from accounts where code = '1'`
-}).then(result => {
-    console.dir(result)
-}).catch(err => {
-    // ... error checks
-})
- 
-sql.on('error', err => {
-    // ... error handler
-})
 
 //SETTINGS https://youtu.be/8eg4w8v076w?t=3012
 //sirve para establecer las configuraciones de un motor de plantillas
