@@ -8,6 +8,22 @@ const oApp = fnExpress()
 const oRouter = require("./routes")
 const oRouterApi = require("./routes-api")
 
+const oConfig = require("./config/mssql")
+console.log(oConfig)
+
+const sql = require("mssql")
+
+
+async () => {
+    try {
+        const pool = await sql.connect("mssql://username:p@192.168.5.2/crm3_flamagas")
+        const result = await sql.query`select * from mytable where id = ${value}`
+        console.dir(result)
+    } catch (err) {
+        console.log("Error checks")
+        // ... error checks
+    }
+}
 //SETTINGS https://youtu.be/8eg4w8v076w?t=3012
 //sirve para establecer las configuraciones de un motor de plantillas
 oApp.set("appName","Mi primer Servidor :)")
