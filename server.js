@@ -17,11 +17,11 @@ const sql = require("mssql")
 
 async () => {
     try {
-        const pool = await sql.connect("mssql://username:p@192.168.5.2/crm3_flamagas")
-        const result = await sql.query`select * from mytable where id = ${value}`
+        const pool = await sql.connect(oConfig)
+        const result = await sql.query`select * from accounts where id = 10`
         console.dir(result)
     } catch (err) {
-        console.log("Error checks")
+        console.log("Error checks".red)
         // ... error checks
     }
 }
