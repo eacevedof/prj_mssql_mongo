@@ -55,16 +55,16 @@ const oExport = {
 
 module.exports = oExport
 /*-- accounts.json
-SELECT DISTINCT '{ code: "'+CONVERT(VARCHAR(10),a.Code)+'",'
+SELECT DISTINCT '{ code : "'+CONVERT(VARCHAR(10),a.Code)+'",'
 ,'code_ofclient: "'+a.Code_ofClient+'",'
-,'code_country: "'+a.Code_Country+'",'
-,'code_ofclient_h1: "'+pja.Code_ofClient_H1+'",'
-,'code_ofclient_h2: "'+pja.Code_ofClient_H2+'",'
-,'code_ofclient_h3: "'+pja.Code_ofClient_H3+'",'
+,'code_country: "'+ISNULL(a.Code_Country,'')+'",'
+,'code_ofclient_h1: "'+ISNULL(pja.Code_ofClient_H1,'')+'",'
+,'code_ofclient_h2: "'+ISNULL(pja.Code_ofClient_H2,'')+'",'
+,'code_ofclient_h3: "'+ISNULL(pja.Code_ofClient_H3,'')+'",'
 -- ,ao.Code_Unit_Org
 ,'code_sales_org: "'+ao.Code_Sales_Org+'",'
-,'tax: "'+atx.TaxClassification+'",' AS Tax
-,'rec: "'+arec.TaxClassification+'" }' AS Rec
+,'tax: "'+ISNULL(atx.TaxClassification,'')+'",' AS Tax
+,'rec: "'+ISNULL(arec.TaxClassification,'')+'" }' AS Rec
 FROM accounts AS a
 INNER JOIN prj_accounts AS pja
 ON a.Code = pja.Code
@@ -79,5 +79,4 @@ ON a.Code = arec.Code_Account
 AND a.Code_Country = arec.Code_Country
 AND arec.Type = 'ZREC'
 WHERE 1=1
-
  */
