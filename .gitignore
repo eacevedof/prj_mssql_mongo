@@ -2,3 +2,4 @@ node_modules
 config
 data/accounts.js
 data/products.js
+data/users.js
