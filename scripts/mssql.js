@@ -1,6 +1,8 @@
+const colors = require("colors")
 const sql = require("mssql")
 const oConfig = require("../config/mssql")
 
+console.log("config".green,oConfig)
 //console.log("sql".green,sql)
 sql.connect(oConfig).then(() => {
     return sql.query`select * from accounts where code = '1'`
