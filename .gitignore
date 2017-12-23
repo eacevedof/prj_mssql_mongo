@@ -1,4 +1,4 @@
 node_modules
-config/accounts.js
-config/products.js
-data
+config
+data/accounts.js
+data/products.js
