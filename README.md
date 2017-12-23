@@ -5,4 +5,6 @@ Prueba de busqueda de precios en mongo
 //comando mongo
 cd /c/xampp/htdocs/mongodb/3.6.0/bin/
 mongoimport --db flamagas --collection accounts --file /c/xampp/htdocs/prj_mssql_mongo/data/accounts.js
+
+mongoimport --db flamagas --collection products --file /c/xampp/htdocs/prj_mssql_mongo/data/products.js
 ```
