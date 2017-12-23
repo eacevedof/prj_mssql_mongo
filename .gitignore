@@ -3,3 +3,4 @@ config
 data/accounts.js
 data/products.js
 data/users.js
+data/conditions.js
