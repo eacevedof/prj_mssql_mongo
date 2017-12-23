@@ -1,5 +1,1 @@
-db.createUser({
-    user:"ioedu",
-    pwd:"123",
-    roles:["readWrite","dbAdmin"]
-})
+db.createUser({user:"flamagas", pwd:"flamagas",roles:["readWrite","dbAdmin"]})
