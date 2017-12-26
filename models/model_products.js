@@ -1,7 +1,7 @@
 const oConfig = require("../config/conf_mongoose")
 const oMongoose = require("mongoose")
 
-const sName = "accounts"
+const sName = "products"
 const oSchema = {
     code : "string",
     code_ofclient: "string",

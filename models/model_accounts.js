@@ -19,18 +19,18 @@ const ModelAccounts = oDb.model(sName,oSchema);
 
 const oExport = {
 
-     get_documents : function(codSO) {  
+     get_documents : function(codSO,fnCallback) {  
         oDb.once('open', () => {
             console.log("acc opened!!")
             ModelAccounts.find({ code_sales_org:codSO }, (oError, arRows) => {
                 console.log("accounts.found")
                 if (oError) {
-                    on_error(oError)
+                    on_error(oError,fnCallback)
                     return []
                 } else {
                     oMongoose.connection.close();
                     //console.log(arRows);
-                    return arRows
+                    fnCallback("",arRows)
                 }
             }) // end oModel.find 
         }) // end db.once open 
