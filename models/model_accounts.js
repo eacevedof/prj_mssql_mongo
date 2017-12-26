@@ -22,7 +22,7 @@ const oExport = {
      get_documents : function(codSO, fnOnFinish) {  
         oDb.once('open', () => {
             console.log("opened!!")
-            ModelAccounts.find({ code_sales_org:codSO },function(oError, arRows) {
+            ModelAccounts.find({ code_sales_org:codSO }, (oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnOnFinish);
                 } else {
