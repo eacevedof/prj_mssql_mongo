@@ -10,4 +10,5 @@ mongoimport --db flamagas --collection products --file /c/xampp/htdocs/prj_mssql
 mongoimport --db flamagas --collection priority --file /c/xampp/htdocs/prj_mssql_mongo/data/priority.js
 mongoimport --db flamagas --collection structure --file /c/xampp/htdocs/prj_mssql_mongo/data/structure.js
 mongoimport --db flamagas --collection conditions --file /c/xampp/htdocs/prj_mssql_mongo/data/conditions.js
+mongoimport --db flamagas --collection accprod_loop --file /c/xampp/htdocs/prj_mssql_mongo/data/accprod_loop.js
 ```
