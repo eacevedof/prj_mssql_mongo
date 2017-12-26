@@ -1,74 +1,77 @@
-const mongoose = require("mongoose"),  
-      db = mongoose.createConnection('localhost','flamagas')
+const oConfig = require("../config/conf_mongoose")
+const oMongoose = require("mongoose")
 
-      process.setMaxListeners(0)
-db.on('error', console.error.bind(console, 'connection error:'))
+const sName = "accprods"
+const oSchema = {
+    code : "string",
+    code_ofclient: "string",
+    code_country: "string",
+    code_ofclient_h1: "string",
+    code_ofclient_h2: "string",
+    code_ofclient_h3: "string",
+    code_sales_org: "string",
+    tax: "string",
+    rec: "string"
+}//oSchema
 
+const oDb = oMongoose.createConnection(oConfig.url);
+const Model = oDb.model(sName,oSchema);
 
-const get_lopps = function(codSO, fnCallback) {  
-    db.once('open', function() {
-        console.log("opened!!")
-        let oSchema = new mongoose.Schema({
-            code_sales_org: String,
-            code_account: String,
-            code_product: String
-        })
-        let oModel = db.model('accproducts', oSchema);
+const oExport = {
 
-        oModel.find(  function(oError, arRows) {
-            if (oError) {
-                on_error(oError,fnCallback);
-            } else {
-                mongoose.connection.close();
-                //console.log(arRows);
-                fnCallback("", arRows);
-            }
-        }) // end oModel.find 
-    }) // end db.once open 
-}//get_loops
+     get_documents : function(fnCallback) {  
+        oDb.once('open', () => {
+            Model.find((oError, arRows) => {
+                if (oError) {
+                    on_error(oError,fnCallback)
+                } else {
+                    oMongoose.connection.close();
+                    fnCallback("",arRows)
+                }
+            }) // end Model.find 
+        }) // end db.once open 
+    },//get_loops
 
-const on_account = function(oError,arRows,codProd){
-    arRows.forEach((o)=>{
-        console.log("on_account",o)
-    })
+    insert : (oData)=>{
+        const oModelInst = new Model(oData)
+        oModelInst.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//insert
+
+    update : (oData)=>{
+        const oModelInst = new Model(oData)
+        oModelInst.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//update    
+
+    delete : (oData)=>{
+        const oModelInst = new Model(oData)
+        oModelInst.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//delete  
+
+    truncate : (oData)=>{
+        const oModelInst = new Model(oData)
+        oModelInst.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//truncate
+
+}//oExport
+
+const on_error = function(oError) {  
+    oModelInst.connection.close();
+    console.error(oError)
 }
 
-const get_account = function(codSO, codAcc,codProd, fnCallback) {  
-    db.once('open', function() {
-        console.log("opened!!")
-        let oSchema = new mongoose.Schema({
-            code_user: String,
-            code_sales_org: String,
-            code_account: String,
-            code_product: String
-        })
-        let oModel = db.model('accounts', oSchema);
-
-        oModel.find({code_sales_org:codSO,code_account:codAcc},function(oError, arRows) {
-            if (oError) {
-                on_error(oError,fnCallback);
-            } else {
-                mongoose.connection.close();
-                //console.log(arRows);
-                fnCallback("", arRows,codProd);
-            }
-        }) // end oModel.find 
-    }) // end db.once open 
-}//get_loops
-
-const on_loops = (oError,arRows) => {
-    arRows.forEach((o)=>{
-        //if(oError) on_error(oError,fnCallback)
-
-        const codAcc = o.code_account
-        const codProd = o.code_product
-        get_account("OVMN02",codAcc,codProd, on_account)
-        
-    })
-}
-
-//get_lopps("OVMN02",on_loops)
-
+module.exports = oExport
 
 
 /*
