@@ -3,34 +3,34 @@ db = mongoose.createConnection('localhost', 'flamagas');
 
 db.on('error', console.error.bind(console, 'connection error:'));  
 
-const teamlist = function(gname, callback) {  
+const get_list = function(codSO, callback) {  
     db.once('open', function() {
         console.log("opened!!")
-      var teamSchema = new mongoose.Schema({
+      var oSchema = new mongoose.Schema({
         code: String,
         code_sales_org: String
       });
-      var Team = db.model('products', teamSchema);
-      Team.find({},function(err, teams) {
-        if (err) {
-          onErr(err, callback);
+      var Team = db.model('products', oSchema);
+      Team.find({code_sales_org:codSO},function(oError, arRows) {
+        if (oError) {
+          on_error(oError, callback);
         } else {
           mongoose.connection.close();
-          console.log(teams);
-          callback("", teams);
+          console.log(arRows);
+          callback("", arRows);
         }
       }); // end Team.find 
     }); // end db.once open 
   };
 
 
-  teamlist("a",(e,d)=>{
+  get_list("OVTN02",(e,d)=>{
       ;
   })
 
-  var onErr = function(err,callback) {  
+  const on_error = function(oError,callback) {  
     mongoose.connection.close();
-    callback(err);
+    callback(oError);
   };
 /*
 SELECT '{code_user: "'+Code_User+'", '+
