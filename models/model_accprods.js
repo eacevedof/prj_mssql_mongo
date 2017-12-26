@@ -69,10 +69,7 @@ const on_loops = (oError,arRows) => {
 
 //get_lopps("OVMN02",on_loops)
 
-const on_error = function(oError,fnCallback) {  
-    mongoose.connection.close();
-    fnCallback(oError);
-}
+
 
 /*
 SELECT '{code_user: "'+Code_User+'", '+

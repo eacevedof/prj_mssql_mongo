@@ -19,6 +19,21 @@ const ModelAccounts = oDb.model(sName,oSchema);
 
 const oExport = {
 
+     get_documents : function(codSO, fnOnFinish) {  
+        oDb.once('open', function() {
+            console.log("opened!!")
+            ModelAccounts.find(  function(oError, arRows) {
+                if (oError) {
+                    on_error(oError,fnOnFinish);
+                } else {
+                    oMongoose.connection.close();
+                    //console.log(arRows);
+                    fnOnFinish("", arRows);
+                }
+            }) // end oModel.find 
+        }) // end db.once open 
+    },//get_loops
+
     insert : (oData)=>{
         const oModAccounts = new ModelAccounts(oData)
         oModAccounts.save((oError)=>{
@@ -52,6 +67,11 @@ const oExport = {
     },//truncate
 
 }//oExport
+
+const on_error = function(oError,fnCallback) {  
+    oModAccounts.connection.close();
+    fnCallback(oError);
+}
 
 module.exports = oExport
 /*-- accounts.json
