@@ -12,8 +12,8 @@ const get_list = function(codSO, fnCallback) {
             code_account: String,
             code_product: String
         })
-        let oModel = db.model('accounts', oSchema);
-        oModel.find( {code_sales_org:codSO }, function(oError, arRows) {
+        let oModel = db.model('accprod', oSchema);
+        oModel.find(  function(oError, arRows) {
             if (oError) {
                 on_error(oError,fnCallback);
             } else {
