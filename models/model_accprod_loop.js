@@ -3,7 +3,28 @@ const mongoose = require("mongoose"),
 
 db.on('error', console.error.bind(console, 'connection error:'))
 
-const get_list = function(codSO, fnCallback) {  
+const get_lopps = function(codSO, fnCallback) {  
+    db.once('open', function() {
+        console.log("opened!!")
+        let oSchema = new mongoose.Schema({
+            code_sales_org: String,
+            code_account: String,
+            code_product: String
+        })
+        let oModel = db.model('accproducts', oSchema);
+        oModel.find(  function(oError, arRows) {
+            if (oError) {
+                on_error(oError,fnCallback);
+            } else {
+                mongoose.connection.close();
+                //console.log(arRows);
+                fnCallback("", arRows);
+            }
+        }) // end oModel.find 
+    }) // end db.once open 
+}//get_loops
+
+const get_account = function(codAcc,codSO, fnCallback) {  
     db.once('open', function() {
         console.log("opened!!")
         let oSchema = new mongoose.Schema({
@@ -12,22 +33,28 @@ const get_list = function(codSO, fnCallback) {
             code_account: String,
             code_product: String
         })
-        let oModel = db.model('loops', oSchema);
+        let oModel = db.model('accounts', oSchema);
         oModel.find(  function(oError, arRows) {
             if (oError) {
                 on_error(oError,fnCallback);
             } else {
                 mongoose.connection.close();
-                console.log(arRows);
+                //console.log(arRows);
                 fnCallback("", arRows);
             }
         }) // end oModel.find 
     }) // end db.once open 
+}//get_loops
+
+const on_loops = (oError,arRows) => {
+    arRows.forEach((o)=>{
+        const code_account = o.code_account
+        const code_product = o.code_product
+        
+    })
 }
 
-get_list("OVMN02",(oError,arRows)=>{
-
-})
+get_lopps("OVMN02",on_loops)
 
 const on_error = function(oError,fnCallback) {  
     mongoose.connection.close();
