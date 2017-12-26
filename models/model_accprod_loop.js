@@ -3,7 +3,7 @@ const mongoose = require("mongoose"),
 
 db.on('error', console.error.bind(console, 'connection error:'))
 
-const get_list = function(codSO, callback) {  
+const get_list = function(codSO, fnCallback) {  
     db.once('open', function() {
         console.log("opened!!")
         let oSchema = new mongoose.Schema({
@@ -13,23 +13,23 @@ const get_list = function(codSO, callback) {
         let oModel = db.model('products', oSchema);
         oModel.find({code_sales_org:codSO},function(oError, arRows) {
             if (oError) {
-                on_error(oError, callback);
+                on_error(oError,fnCallback);
             } else {
                 mongoose.connection.close();
                 console.log(arRows);
-                callback("", arRows);
+                fnCallback("", arRows);
             }
         }) // end oModel.find 
     }) // end db.once open 
 }
 
-get_list("OVMN02",(e,d)=>{
-    ;
+get_list("OVMN02",(oError,arRows)=>{
+    
 })
 
-const on_error = function(oError,callback) {  
+const on_error = function(oError,fnCallback) {  
     mongoose.connection.close();
-    callback(oError);
+    fnCallback(oError);
 }
 
 /*
