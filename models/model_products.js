@@ -9,7 +9,6 @@ const oSchema = {
     code_hierarchy2: "string",
     code_sales_org: "string",
     code_country_tax: "string",
-    code_sales_org: "string",
     tax: "string",
     rec: "string",
     code_country_ec : "String",
@@ -29,7 +28,6 @@ const oExport = {
                 console.log("products.found")
                 if (oError) {
                     on_error(oError,fnCallback)
-                    return []
                 } else {
                     oMongoose.connection.close()
                     fnCallback("",arRows)

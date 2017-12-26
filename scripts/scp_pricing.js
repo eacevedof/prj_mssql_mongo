@@ -6,7 +6,8 @@ const arAccounts = []
 const arProducts = []
 
 oAsync.parallel([
-        function(cb){oProd.get_documents("OVMN02",cb)}
+        (cb)=>{oProd.get_documents("OVMN02",cb)},
+        (cb)=>{oProd.get_documents("OVMN02",cb)}
     ],function(oError,arData){
         console.log(arData)
 });
