@@ -1,3 +1,83 @@
+const oConfig = require("../config/conf_mongoose")
+const oMongoose = require("mongoose")
+
+const sName = "accounts"
+const oSchema = {
+    code : "string",
+    code_ofclient: "string",
+    code_hierarchy1: "string",
+    code_hierarchy2: "string",
+    code_sales_org: "string",
+    code_country_tax: "string",
+    code_sales_org: "string",
+    tax: "string",
+    rec: "string",
+    code_country_ec : "String",
+    code_country_can : "String",
+    can: "String"
+}//oSchema
+
+const oDb = oMongoose.createConnection(oConfig.url);
+const ModelProducts = oDb.model(sName,oSchema);
+
+const oExport = {
+
+     get_documents : function(codSO, fnOnFinish) {  
+        oDb.once('open', () => {
+            console.log("opened!!")
+            ModelProducts.find({ code_sales_org:codSO }, (oError, arRows) => {
+                if (oError) {
+                    on_error(oError,fnOnFinish);
+                } else {
+                    oMongoose.connection.close();
+                    //console.log(arRows);
+                    fnOnFinish("", arRows);
+                }
+            }) // end oModel.find 
+        }) // end db.once open 
+    },//get_loops
+
+    insert : (oData)=>{
+        const oModProducts = new ModelProducts(oData)
+        oModProducts.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//insert
+
+    update : (oData)=>{
+        const oModProducts = new ModelProducts(oData)
+        oModProducts.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//update    
+
+    delete : (oData)=>{
+        const oModProducts = new ModelProducts(oData)
+        oModProducts.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//delete  
+
+    truncate : (oData)=>{
+        const oModProducts = new ModelProducts(oData)
+        oModProducts.save((oError)=>{
+            if(oError)
+                return handleError(oError)
+        })//save
+    },//truncate
+
+}//oExport
+
+const on_error = function(oError,fnCallback) {  
+    oModProducts.connection.close();
+    fnCallback(oError);
+}
+
+module.exports = oExport
+
 /*
 SELECT DISTINCT '{code: "'+CONVERT(VARCHAR(10),p.Code)+'",'
 ,'code_ofclient: "'+ISNULL(p.Code_ofClient,'')+'",'
