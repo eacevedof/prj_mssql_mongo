@@ -22,17 +22,17 @@ const ModelProducts = oDb.model(sName,oSchema);
 
 const oExport = {
 
-     get_documents : function(codSO) {  
+     get_documents : function(codSO,fnCallback) {  
         oDb.once('open', () => {
             console.log("prod opened!!")
             ModelProducts.find({ code_sales_org:codSO }, (oError, arRows) => {
                 console.log("products.found")
                 if (oError) {
-                    on_error(oError)
+                    on_error(oError,fnCallback)
                     return []
                 } else {
-                    oMongoose.connection.close();
-                    return arRows
+                    oMongoose.connection.close()
+                    fnCallback("",arRows)
                 }
             }) // end oModel.find 
         }) // end db.once open 
