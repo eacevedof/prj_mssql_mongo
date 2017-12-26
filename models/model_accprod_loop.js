@@ -12,7 +12,7 @@ const get_list = function(codSO, fnCallback) {
             code_account: String,
             code_product: String
         })
-        let oModel = db.model('accprod', oSchema);
+        let oModel = db.model('loops', oSchema);
         oModel.find(  function(oError, arRows) {
             if (oError) {
                 on_error(oError,fnCallback);
