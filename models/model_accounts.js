@@ -20,9 +20,9 @@ const ModelAccounts = oDb.model(sName,oSchema);
 const oExport = {
 
      get_documents : function(codSO, fnOnFinish) {  
-        oDb.once('open', function() {
+        oDb.once('open', () => {
             console.log("opened!!")
-            ModelAccounts.find(  function(oError, arRows) {
+            ModelAccounts.find({ code_sales_org:codSO },function(oError, arRows) {
                 if (oError) {
                     on_error(oError,fnOnFinish);
                 } else {
