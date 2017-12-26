@@ -7,11 +7,13 @@ const get_list = function(codSO, fnCallback) {
     db.once('open', function() {
         console.log("opened!!")
         let oSchema = new mongoose.Schema({
-            code: String,
-            code_sales_org: String
+            code_user: String,
+            code_sales_org: String,
+            code_account: String,
+            code_product: String
         })
-        let oModel = db.model('products', oSchema);
-        oModel.find({code_sales_org:codSO},function(oError, arRows) {
+        let oModel = db.model('accprod_loop', oSchema);
+        oModel.find( {code_sales_org:codSO }, function(oError, arRows) {
             if (oError) {
                 on_error(oError,fnCallback);
             } else {
@@ -24,7 +26,7 @@ const get_list = function(codSO, fnCallback) {
 }
 
 get_list("OVMN02",(oError,arRows)=>{
-    
+
 })
 
 const on_error = function(oError,fnCallback) {  
