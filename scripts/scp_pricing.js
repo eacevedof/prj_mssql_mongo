@@ -22,6 +22,7 @@ oAsync.parallel({
         struct: function(fnCallback){oStruct.get_documents(fnCallback)},
         conds: function(fnCallback){oConds.get_documents(fnCallback)}
     },function(oError,oR){
+        process.uptime()
         console.log("\nresult in parallel")
 
         let arLoop = oR.accprod.map(o => o.toObject())
@@ -36,6 +37,7 @@ oAsync.parallel({
         let arStructure = oR.struct.map(o => o.toObject())
         let arConds = oR.conds.map(o => o.toObject())
 
+        process.uptime()
         console.log("loop.length:",arLoop.length)
 
         arLoop.forEach(o => {
@@ -43,7 +45,10 @@ oAsync.parallel({
             let oAccount = oPrice.account.get_vars(arAccounts,o.code_account,"OVMN02")
             let oProduct = oPrice.product.get_vars(arProducts,o.code_product,"OVMN02")
 
-            
+            arPriority.forEach(oP => {
+                console.log(oP.secuence)
+            })
+
 
             //console.log("acc:",oAccount.code)
             //console.log("prod:",oProduct.code)
