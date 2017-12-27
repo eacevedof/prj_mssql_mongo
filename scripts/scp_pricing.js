@@ -19,7 +19,9 @@ oAsync.parallel({
         struct: function(cb){oStruct.get_documents(cb)},
         conds: function(cb){oConds.get_documents(cb)},
         prior: function(cb){oPrior.get_documents(cb)}
-    },function(oError,arData){
-        console.log("arData",arData.prod.length)
-        console.log("process time:",process.uptime())
+    },function(oError,oResult){
+        let arAccounts = oResult.acc
+        console.log(arAccounts)
+        //console.log("oResult",oResult.prod.length)
+        //console.log("process time:",process.uptime())
 });
