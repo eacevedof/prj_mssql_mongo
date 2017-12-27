@@ -22,8 +22,8 @@ oAsync.parallel({
         //conds: function(fnCallback){oConds.get_documents(fnCallback)}
     },function(oError,oR){
         console.log("result in parallel")
-        let arAccsActive = oPrice.account.get_unique(oR.accprod)
-        let arMinAcc = oPrice.account.get_minified(oR.acc,arAccsActive)
+        //let arAccsActive = oPrice.account.get_unique(oR.accprod)
+        let arMinAcc = oPrice.account.get_minified(oR.acc,oPrice.account.get_unique(oR.accprod))
         console.log("arMinacc.lenght",arMinAcc.length)
         console.log("process time:",process.uptime())
 });
