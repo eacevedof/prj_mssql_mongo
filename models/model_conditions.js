@@ -1,5 +1,5 @@
 const oConfig = require("../config/conf_mongoose")
-const oMongoose = require("mongoose")
+const oMongoose = require("mongoose")//.set("debug",true)
 
 const sName = "conditions"
 const oSchema = {
@@ -26,7 +26,7 @@ const oSchema = {
     id_erp : "string"
 }//oSchema
 
-const oDb = oMongoose.createConnection(oConfig.url);
+const oDb = oMongoose.createConnection(oConfig.url)
 const Model = oDb.model(sName,oSchema);
 
 const oExport = {

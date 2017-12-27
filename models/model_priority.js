@@ -1,5 +1,5 @@
 const oConfig = require("../config/conf_mongoose")
-const oMongoose = require("mongoose")
+const oMongoose = require("mongoose").set("debug",true)
 
 const sName = "priority"
 const oSchema = {

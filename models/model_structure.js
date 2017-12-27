@@ -1,34 +1,36 @@
-const oMongoose = require("mongoose")
+const oMongoose = require("mongoose").set("debug",true)
 const oConfig = require("../config/conf_mongoose")
 
 const sName = "structure"
 const oSchema = {
-    secuence: "string",
-    code_table: "string",
-    orden: "string",
-    code1: "string",
-    code2: "string",
-    code3: "string",
-    code4: "string",
-    code5: "string",
-    code6: "string",
-    code7: "string",
-    code8: "string",
-    code_type: "string",
-    special: "string",
-    type_price: "string",
-    on_base: "string",
-    exclusive: "string" 
+    _id: oMongoose.Schema.Types.ObjectId,
+    secuence: String,
+    code_table: String,
+    orden: String,
+    code1: String,
+    code2: String,
+    code3: String,
+    code4: String,
+    code5: String,
+    code6: String,
+    code7: String,
+    code8: String,
+    code_type: String,
+    special: String,
+    type_price: String,
+    on_base: String,
+    exclusive: String 
 }//oSchema
 
-const oDb = oMongoose.createConnection(oConfig.url);
-const Model = oDb.model(sName,oSchema);
+const oDb = oMongoose.createConnection(oConfig.url)
+const Model = oDb.model(sName,oSchema)
 
 const oExport = {
 
      get_documents : function(fnCallback) {  
         oDb.once('open', () => {
             console.log(sName," opened!")
+            //oDb.db.listCollections({name:sName}).next(function(err, collinfo) {console.log(collinfo)});
             Model.find((oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnCallback)
