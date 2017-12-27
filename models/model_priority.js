@@ -3,15 +3,12 @@ const oMongoose = require("mongoose")
 
 const sName = "priority"
 const oSchema = {
-    code : "string",
-    code_ofclient: "string",
-    code_country: "string",
-    code_ofclient_h1: "string",
-    code_ofclient_h2: "string",
-    code_ofclient_h3: "string",
-    code_sales_org: "string",
-    tax: "string",
-    rec: "string"
+    secuence : "string",
+    code_type : "string",
+    orden : "string",
+    priority : "string",
+    agrupation : "string",
+    type_based : "string"    
 }//oSchema
 
 const oDb = oMongoose.createConnection(oConfig.url);
@@ -21,6 +18,7 @@ const oExport = {
 
      get_documents : function(fnCallback) {  
         oDb.once('open', () => {
+            console.log(sName," opened!")
             Model.find((oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnCallback)

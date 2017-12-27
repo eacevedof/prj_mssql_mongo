@@ -21,6 +21,7 @@ const oExport = {
 
      get_documents : function(fnCallback) {  
         oDb.once('open', () => {
+            console.log(sName," opened!")
             Model.find((oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnCallback)

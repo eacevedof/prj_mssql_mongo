@@ -23,7 +23,7 @@ const oExport = {
 
      get_documents : function(codSO,fnCallback) {  
         oDb.once('open', () => {
-            console.log("prod opened!!")
+            console.log(sName," opened!")
             ModelProducts.find({ code_sales_org:codSO }, (oError, arRows) => {
                 console.log("products.found")
                 if (oError) {

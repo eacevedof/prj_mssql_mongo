@@ -1,17 +1,24 @@
-const oConfig = require("../config/conf_mongoose")
 const oMongoose = require("mongoose")
+const oConfig = require("../config/conf_mongoose")
 
 const sName = "structure"
 const oSchema = {
-    code : "string",
-    code_ofclient: "string",
-    code_country: "string",
-    code_ofclient_h1: "string",
-    code_ofclient_h2: "string",
-    code_ofclient_h3: "string",
-    code_sales_org: "string",
-    tax: "string",
-    rec: "string"
+    secuence: "string",
+    code_table: "string",
+    orden: "string",
+    code1: "string",
+    code2: "string",
+    code3: "string",
+    code4: "string",
+    code5: "string",
+    code6: "string",
+    code7: "string",
+    code8: "string",
+    code_type: "string",
+    special: "string",
+    type_price: "string",
+    on_base: "string",
+    exclusive: "string" 
 }//oSchema
 
 const oDb = oMongoose.createConnection(oConfig.url);
@@ -21,6 +28,7 @@ const oExport = {
 
      get_documents : function(fnCallback) {  
         oDb.once('open', () => {
+            console.log(sName," opened!")
             Model.find((oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnCallback)
