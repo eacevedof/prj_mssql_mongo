@@ -18,7 +18,7 @@ oAsync.parallel({
         prod: function(cb){oProd.get_documents("OVMN02",cb)},
         struct: function(cb){oStruct.get_documents(cb)},
         conds: function(cb){oConds.get_documents(cb)},
-        prior: function(cb){oConds.get_documents(cb)}
+        prior: function(cb){oPrior.get_documents(cb)}
     },function(oError,arData){
         console.log("arData",arData.prod.length)
         console.log("process time:",process.uptime())

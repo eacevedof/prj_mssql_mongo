@@ -25,7 +25,6 @@ const oExport = {
         oDb.once('open', () => {
             console.log(sName," opened!")
             ModelProducts.find({ code_sales_org:codSO }, (oError, arRows) => {
-                console.log("products.found")
                 if (oError) {
                     on_error(oError,fnCallback)
                 } else {

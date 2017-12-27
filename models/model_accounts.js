@@ -23,7 +23,6 @@ const oExport = {
         oDb.once('open', () => {
             console.log(sName," opened!")
             ModelAccounts.find({ code_sales_org:codSO }, (oError, arRows) => {
-                console.log("accounts.found")
                 if (oError) {
                     on_error(oError,fnCallback)
                     return []
