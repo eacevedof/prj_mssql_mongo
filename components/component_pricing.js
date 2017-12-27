@@ -1,11 +1,11 @@
 const Pricing = {
     account : {
         get_reduced:(arAccounts,codAccount,codSalesOrg)=>{
-            return arAccounts.filter(codAcc)
+            return arAccounts.filter(oAcc => oAcc.code === codAccount )
         },
 
         get_vars : (arAccount,codAccount)=>{
-            return arAccount.filter(codAcc => )
+            ;//return arAccount.filter(codAcc => )
         }
     },
 
