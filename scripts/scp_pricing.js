@@ -7,16 +7,11 @@ const oAccProd = require("../models/model_accprods")
 
 const arAll = []
 
-oAsync.parallel([
-    {
-        a:(cb)=>{oAccProd.get_documents(cb)},
-        b:(cb)=>{oAcc.get_documents("OVMN02",cb)},
-        c:(cb)=>{oProd.get_documents("OVMN02",cb)}
-    }
-    ],function(oError,arData){
-        console.log("arData:",arData)
-        let arAcc = arData[0]
-        let arPrd = arData[1]
-        console.log(arAcc.length,arPrd.length)
+oAsync.parallel({
+       aprod : function(cb){oAccProd.get_documents(cb)},
+        acc : function(cb){oAcc.get_documents("OVMN02",cb)},
+        prod: function(cb){oProd.get_documents("OVMN02",cb)}
+    },function(oError,arData){
+        console.log("arData",arData.prod.length)
         console.log("process time:",process.uptime())
 });
