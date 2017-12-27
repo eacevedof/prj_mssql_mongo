@@ -45,7 +45,7 @@ const Pricing = {
             let arR = arProducts.filter(o => o.code===codProduct)
                         .filter(o => o.code_sales_org===codSalesOrg)
                         
-            return (arR.length===1?arR[0]:arR)
+            return (arR.length>0?arR[0]:arR)
         },//get_vars
     }//product
 
