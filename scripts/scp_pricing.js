@@ -13,21 +13,17 @@ const oConds = require("../models/model_conditions")
 const oPrice = require("../components/component_pricing")
 
 oAsync.parallel({
-        accprod : function(cb){oAccProd.get_documents(cb)},
-        //acc : function(cb){oAcc.get_documents("OVMN02",cb)},
-        //prod: function(cb){oProd.get_documents("OVMN02",cb)},
-        //struct: function(cb){oStruct.get_documents(cb)},
-        //prior: function(cb){oPrior.get_documents(cb)},
-        //conds: function(cb){oConds.get_documents(cb)}
-    },function(oError,oResult){
-        let arActiveAcc = oResult.accprod.filter((oItem,ipos,arSelf)=>{
-            //console.log("v:",v,"i:",i,"ar:",ar)
-            //ar.indexOf(v)===i
-            
-        })
-        //let arAccounts = oPrice.account.get_reduced(oResult.acc,"451")
-        console.log(arActiveAcc.length)
-        //console.log(arAccounts.length) //8592
-        //console.log("oResult",oResult.prod.length)
+        //lanza consultas a mongo en paralelo
+        accprod : function(fnCallback){oAccProd.get_documents(fnCallback)},
+        acc : function(fnCallback){oAcc.get_documents("OVMN02",fnCallback)},
+        //prod: function(fnCallback){oProd.get_documents("OVMN02",fnCallback)},
+        //struct: function(fnCallback){oStruct.get_documents(fnCallback)},
+        //prior: function(fnCallback){oPrior.get_documents(fnCallback)},
+        //conds: function(fnCallback){oConds.get_documents(fnCallback)}
+    },function(oError,oR){
+        console.log("result in parallel")
+        let arAccsActive = oPrice.account.get_unique(oR.accprod)
+        let arMinAcc = oPrice.account.get_minified(oR.acc,arAccsActive)
+        console.log("arMinacc.lenght",arMinAcc.length)
         console.log("process time:",process.uptime())
 });
