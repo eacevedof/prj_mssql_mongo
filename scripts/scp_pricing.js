@@ -34,7 +34,14 @@ oAsync.parallel({
         let arConds = oR.conds.map(o => o.toObject())
 
         arLoop.forEach(o => {
-            
+            let oAcc = oPrice.account.get_vars(o.code_account)
+            let oProd = oPrice.product.get_vars(o.code_product)
+
+            arPriority.forEach(o=>{
+                console.log("oAcc:",oAcc,"oProd:",oProd,"priority:",o)
+            })
+            process.exit()
+            //obtengo el 
         });
 
         //let oAcc = oPrice.account.get_vars(arAccounts,"451","OVMN02")
