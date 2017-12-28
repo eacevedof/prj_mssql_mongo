@@ -100,4 +100,28 @@ ON a.Code = arec.Code_Account
 AND a.Code_Country = arec.Code_Country
 AND arec.Type = 'ZREC'
 WHERE 1=1
- */
+
+SELECT DISTINCT a.Code
+,a.Code_ofClient
+,a.Code_Country
+,pja.Code_ofClient_H1
+,pja.Code_ofClient_H2
+,pja.Code_ofClient_H3
+,ao.Code_Sales_Org
+,atx.TaxClassification AS Tax
+,arec.TaxClassification AS Rec
+FROM accounts AS a
+INNER JOIN prj_accounts AS pja
+ON a.Code = pja.Code
+INNER JOIN accounts_organization AS ao
+ON a.Code = ao.Code_Account
+LEFT JOIN prj_accounts_tax AS atx
+ON a.Code = atx.Code_Account
+AND a.Code_Country = atx.Code_Country
+AND atx.Type = 'MWST'
+LEFT JOIN prj_accounts_tax AS arec
+ON a.Code = arec.Code_Account
+AND a.Code_Country = arec.Code_Country
+AND arec.Type = 'ZREC'
+WHERE 1=1
+*/
