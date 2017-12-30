@@ -11,7 +11,7 @@ const oSchema = {
     type_based : "string"    
 }//oSchema
 
-const oConn = oMongoose.createConnection(oConfig.url);
+const oConn = oMongoose.createConnection(oConfig.url,{useMongoClient: true});
 oConn.on("error",(e)=>{console.log("conn.error",e)})
 
 const Model = oConn.model(sName,oSchema);
