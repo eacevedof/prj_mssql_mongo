@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "mssql": "node scripts/scp_mssql.js",
-    "mongo": "node scripts/scp_mongo.js"
+    "mongo": "node scripts/scp_mongo.js",
+    "price": "node scripts/scp_pricing.js"
   },
   "dependencies": {
     "babel-preset-react": "^6.24.1",
