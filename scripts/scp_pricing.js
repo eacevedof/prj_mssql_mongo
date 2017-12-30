@@ -24,7 +24,7 @@ oAsync.parallel({
     },function(oError,oR){
         console.log("\nresult in parallel")
         console.log("process time:",process.uptime())
-        console.log("iprior:",oR.prior.length,"struct:",oR.struct.length)
+        console.log("iprior:",oR.prior.length,"struct:",oR.struct.length,"accprod:",oR.accprod.length)
         //console.log("iprior:",oR.prior.length,"struct:",oR.struct.length,"conds:",oR.conds.length,"accprod:",oR.accprod.length,"acc:",oR.acc.length,"prod:",oR.prod.length)
         process.exit()
 
