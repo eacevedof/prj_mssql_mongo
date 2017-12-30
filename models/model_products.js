@@ -16,13 +16,13 @@ const oSchema = {
     can: "String"
 }//oSchema
 
-const oDb = oMongoose.createConnection(oConfig.url);
-const ModelProducts = oDb.model(sName,oSchema);
+const oConn = oMongoose.createConnection(oConfig.url);
+const ModelProducts = oConn.model(sName,oSchema);
 
 const oExport = {
 
      get_documents : function(codSO,fnCallback) {  
-        oDb.once('open', () => {
+        oConn.once('open', () => {
             console.log(sName," opened!")
             ModelProducts.find({ code_sales_org:codSO }, (oError, arRows) => {
                 if (oError) {

@@ -22,15 +22,15 @@ const oSchema = {
     exclusive: String 
 }//oSchema
 
-const oDb = oMongoose.createConnection(oConfig.url)
-const Model = oDb.model(sName,oSchema)
+const oConn = oMongoose.createConnection(oConfig.url)
+const Model = oConn.model(sName,oSchema)
 
 const oExport = {
 
      get_documents : function(fnCallback) {  
-        oDb.once('open', () => {
+        oConn.once('open', () => {
             console.log(sName," opened!")
-            //oDb.db.listCollections({name:sName}).next(function(err, collinfo) {console.log(collinfo)});
+            //oConn.db.listCollections({name:sName}).next(function(err, collinfo) {console.log(collinfo)});
             Model.find((oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnCallback)

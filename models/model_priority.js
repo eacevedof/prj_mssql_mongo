@@ -11,13 +11,15 @@ const oSchema = {
     type_based : "string"    
 }//oSchema
 
-const oDb = oMongoose.createConnection(oConfig.url);
-const Model = oDb.model(sName,oSchema);
+const oConn = oMongoose.createConnection(oConfig.url);
+oConn.on("error",(e)=>{console.log("conn.error",e)})
+
+const Model = oConn.model(sName,oSchema);
 
 const oExport = {
 
      get_documents : function(fnCallback) {  
-        oDb.once('open', () => {
+        oConn.once('open', () => {
             console.log(sName," opened!")
             Model.find((oError, arRows) => {
                 if (oError) {

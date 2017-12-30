@@ -14,13 +14,15 @@ const oSchema = {
     rec: "string"
 }//oSchema
 
-const oDb = oMongoose.createConnection(oConfig.url);
-const ModelAccounts = oDb.model(sName,oSchema);
+const oConn = oMongoose.createConnection(oConfig.url);
+oConn.on("error",(e)=>{console.log("conn.error",e)})
+
+const ModelAccounts = oConn.model(sName,oSchema);
 
 const oExport = {
 
      get_documents : function(codSO,fnCallback) {  
-        oDb.once('open', () => {
+        oConn.once('open', () => {
             console.log(sName," opened!")
             ModelAccounts.find({ code_sales_org:codSO }, (oError, arRows) => {
                 if (oError) {
