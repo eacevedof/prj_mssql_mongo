@@ -11,6 +11,10 @@ mongoimport --db flamagas --collection priority --file /c/xampp/htdocs/prj_mssql
 mongoimport --db flamagas --collection structure --file /c/xampp/htdocs/prj_mssql_mongo/data/structure.js
 mongoimport --db flamagas --collection conditions --file /c/xampp/htdocs/prj_mssql_mongo/data/conditions.js
 mongoimport --db flamagas --collection accproducts --file /c/xampp/htdocs/prj_mssql_mongo/data/accprod.js
+
+## Backup
+
+mongodump -h 127.0.0.1 -d flamagas -o c:\shared\mongobk\
 ```
 
 # error
