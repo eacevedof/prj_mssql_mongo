@@ -53,8 +53,19 @@ Security context: 000000A525525EC1 <JSObject>
 
 FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
 
-**solución**
+## solución
 https://stackoverflow.com/questions/38558989/node-js-heap-out-of-memory
 
 $ node --max-old-space-size=4096 scp_pricing.js
+```
+
+## error
+```
+al conectar con mlab.com:
+
+Db.prototype.authenticate method will no longer be available in the next major release 3.x as MongoDB 3.6 will only allow auth against users in the admin db and will no longer allow multiple credentials on a socket. Please authenticate using MongoClient.connect with auth credentials
+
+##solucion
+
+
 ```
