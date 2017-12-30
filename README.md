@@ -15,6 +15,11 @@ mongoimport --db flamagas --collection accproducts --file /c/xampp/htdocs/prj_ms
 ## Backup
 
 mongodump -h 127.0.0.1 -d flamagas -o c:\shared\mongobk\
+
+## Restore
+mongo ds<123456>.mlab.com:35827/flamagas -u xxx -p yyy
+mongorestore -h ds<123456>.mlab.com:35827 -d flamagas -u xxx -p yyy c:\shared\mongobk\flamagas
+
 ```
 
 # error
