@@ -1,5 +1,5 @@
 node_modules
-config
+config/conf_mongoose.js
 data/accounts.js
 data/products.js
 data/users.js
