@@ -6,15 +6,15 @@ const db = require("../components/component_dbmongoose")
 const on_dbopen = ()=>{
 
   // Create song schema
-  var songSchema = db.mng.Schema({
+  var songSchema = db.get_schema({
     decade: String,
     artist: String,
     song: String,
     weeksAtOne: Number
-  });
+  })
 
   // Store song documents in a collection called "songs"
-  var Song = db.mng.model('songs', songSchema);
+  var Song = db.get_model('songs', songSchema);
 
   // Create seed data
   var seventies = new Song({
