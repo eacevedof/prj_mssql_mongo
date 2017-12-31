@@ -11,10 +11,10 @@ const oSchemaConfig = {
     weeksAtOne: Number
   }
 
-const add = (CModel,...arObjects)=>{
+const insert = (CModel,...arObjects)=>{
     console.log("insert many...")
     CModel.insertMany(arObjects)
-}//add
+}//insert
 
 const on_dbopen = ()=>{
 
@@ -46,7 +46,7 @@ const on_dbopen = ()=>{
     weeksAtOne: 16
   });
 
-  add(Model,seventies,eighties,nineties)
+  insert(Model,seventies,eighties,nineties)
 
   /*
    * Then we need to give Boyz II Men credit for their contribution
