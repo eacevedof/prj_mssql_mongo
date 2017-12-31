@@ -3,35 +3,42 @@
 
 const db = require("../components/component_dbmongoose")
 
-const on_dbopen = ()=>{
-
-  // Create song schema
-  var songSchema = db.get_schema({
+const sCollection = "songs"
+const oSchemaConfig = {
     decade: String,
     artist: String,
     song: String,
     weeksAtOne: Number
-  })
+  }
+
+const add = ()=>{
+
+}
+
+const on_dbopen = ()=>{
+
+  // Create song schema
+  var oSchema = db.get_schema(oSchemaConfig)
 
   // Store song documents in a collection called "songs"
-  var Song = db.get_model('songs', songSchema);
+  var Model = db.get_model(sCollection, oSchema);
 
   // Create seed data
-  var seventies = new Song({
+  var seventies = new Model({
     decade: '1970s',
     artist: 'Debby Boone',
     song: 'You Light Up My Life',
     weeksAtOne: 10
   });
 
-  var eighties = new Song({
+  var eighties = new Model({
     decade: '1980s',
     artist: 'Olivia Newton-John',
     song: 'Physical',
     weeksAtOne: 10
   });
 
-  var nineties = new Song({
+  var nineties = new Model({
     decade: '1990s',
     artist: 'Mariah Carey',
     song: 'One Sweet Day',
@@ -43,13 +50,13 @@ const on_dbopen = ()=>{
    * songs collection; it is created automatically when we insert.
    */
   var list = [seventies, eighties, nineties]
-  Song.insertMany(list);
+  Model.insertMany(list);
 
   /*
    * Then we need to give Boyz II Men credit for their contribution
    * to the hit "One Sweet Day".
    */
-  Song.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men'} }, 
+  Model.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men'} }, 
     function (err, numberAffected, raw) {
 
       if (err) return handleError(err);
@@ -58,7 +65,7 @@ const on_dbopen = ()=>{
        * Finally we run a query which returns all the hits that spend 10 or
        * more weeks at number 1.
        */
-      Song.find({ weeksAtOne: { $gte: 10} }).sort({ decade: 1}).exec(function (err, docs){
+      Model.find({ weeksAtOne: { $gte: 10} }).sort({ decade: 1}).exec(function (err, docs){
 
         if(err) throw err;
 
