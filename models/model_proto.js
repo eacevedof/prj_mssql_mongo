@@ -11,9 +11,10 @@ const oSchemaConfig = {
     weeksAtOne: Number
   }
 
-const add = ()=>{
-
-}
+const add = (CModel,...arObjects)=>{
+    console.log("insert many...")
+    CModel.insertMany(arObjects)
+}//add
 
 const on_dbopen = ()=>{
 
@@ -45,12 +46,7 @@ const on_dbopen = ()=>{
     weeksAtOne: 16
   });
 
-  /*
-   * First we'll add a few songs. Nothing is required to create the 
-   * songs collection; it is created automatically when we insert.
-   */
-  var list = [seventies, eighties, nineties]
-  Model.insertMany(list);
+  add(Model,seventies,eighties,nineties)
 
   /*
    * Then we need to give Boyz II Men credit for their contribution
