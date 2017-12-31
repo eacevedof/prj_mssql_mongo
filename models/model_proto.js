@@ -11,19 +11,9 @@ const oSchemaConfig = {
     weeksAtOne: Number
   }
 
-const insert = (CModel,...arObjects)=>{
-    console.log("insert many...")
-    CModel.insertMany(arObjects)
-}//insert
-
-const update = (CModel) => {
-
-    CModel.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men yyyy'} }, 
-    function (err, numberAffected, raw) {
-
-      if (err) return handleError(err);
-
-      /*
+const get_documents = (CModel)=>{
+    console.log("get_documents")  
+    /*
        * Finally we run a query which returns all the hits that spend 10 or
        * more weeks at number 1.
        */
@@ -49,6 +39,22 @@ const update = (CModel) => {
           });
         });//drop */
       });
+}//get_documents
+
+const insert = (CModel,...arObjects)=>{
+    console.log("insert many...")
+    CModel.insertMany(arObjects)
+}//insert
+
+const update = (CModel) => {
+
+    CModel.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men yyyy'} }, 
+    function (err, numberAffected, raw) {
+
+      if (err) return handleError(err);
+      //imprime el listado  
+      get_documents(CModel)
+
     }
   )//update    
 }
