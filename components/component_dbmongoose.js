@@ -15,7 +15,18 @@ const oDb = {
 
     //methods
     get_schema : oSchema => mongoose.Schema(oSchema),
-    get_model : (sModel,oSchema) => mongoose.model(sModel,oSchema) 
+    get_model : (sModel,oSchema) => mongoose.model(sModel,oSchema),
+    get_collection : sCollection => mongoose.connection.db.collection(sCollection),
+    close : () => { 
+                mongoose.connection.db.close((oErr) =>{
+                    console.log("closing connection!!")
+                    if(oErr) {
+                        console.log("mongoose.connection.db.close: Error",oErr)
+                        throw oErr
+                    }
+                }//on_close
+                )//close()    
+            }
 }
 
 module.exports = oDb

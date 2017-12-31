@@ -11,22 +11,28 @@ const oSchemaConfig = {
     weeksAtOne: Number
   }
 
+const drop_collection = () => {
+    const on_dropped = (oErr) => {
+        console.log("dropping collection:",sCollection)
+        if(oErr) throw oErr
+        db.close()
+    }//on_dropped
+
+    db.get_collection(sCollection).drop(on_dropped)
+}//drop_collection
+
 const get_documents = (CModel)=>{
-    console.log("get_documents")  
-    /*
-       * Finally we run a query which returns all the hits that spend 10 or
-       * more weeks at number 1.
-       */
-      CModel.find({ weeksAtOne: { $gte: 10} }).sort({ decade: 1}).exec(function (err, docs){
+    const on_found = function (err, arDocs){
+        if(err) throw err
 
-        if(err) throw err;
+        arDocs.forEach(function (oDoc) {
+            console.log("oDoc: ",oDoc)
+        })
 
-        docs.forEach(function (doc) {
-          console.log(
-            'In the ' + doc['decade'] + ', ' + doc['song'] + ' by ' + doc['artist'] + 
-            ' topped the charts for ' + doc['weeksAtOne'] + ' straight weeks.'
-          );
-        });
+        //drop_collection()
+
+    }//on_found
+    CModel.find({ weeksAtOne: { $gte: 10} }).sort({ decade: 1}).exec(on_found)
 
 /*         // Since this is an example, we'll clean up after ourselves.
         db.mng.connection.db.collection('songs').drop(function (err) {
@@ -38,7 +44,7 @@ const get_documents = (CModel)=>{
             if(err) throw err;
           });
         });//drop */
-      });
+      
 }//get_documents
 
 const insert = (CModel,...arObjects)=>{
@@ -48,16 +54,17 @@ const insert = (CModel,...arObjects)=>{
 
 const update = (CModel) => {
 
-    CModel.update({ song: 'One Sweet Day'}, { $set: { artist: 'Mariah Carey ft. Boyz II Men yyyy'} }, 
-    function (err, numberAffected, raw) {
+    const on_update = (oErr, numberAffected, raw) => {
+        if (oErr) return handleError(oErr)
+        //imprime el listado  
+        get_documents(CModel)
+    }//on_update
 
-      if (err) return handleError(err);
-      //imprime el listado  
-      get_documents(CModel)
+    CModel.update({ song: 'One Sweet Day'}, 
+            { $set: { artist: 'Mariah Carey ft. Boyz II Men yyyy'} }, 
+            on_update)//CModel.update
 
-    }
-  )//update    
-}
+}//update
 
 
 const on_dbopen = ()=>{
@@ -93,6 +100,8 @@ const on_dbopen = ()=>{
   insert(Model,seventies,eighties,nineties)
 
   update(Model)
+
+  get_documents(Model)
 }//on_dbopen
 
 db.conn.once("open",on_dbopen)
