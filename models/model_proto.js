@@ -2,6 +2,9 @@
 //https://github.com/mongolab/mongodb-driver-examples/blob/master/nodejs/mongooseSimpleExample.js
 const db = require("../components/component_dbmongoose")
 
+//================
+//    MODEL 
+//================
 const sCollection = "songs"
 const oSchemaConfig = {
     decade: String,
@@ -9,6 +12,9 @@ const oSchemaConfig = {
     song: String,
     weeksAtOne: Number
 }
+
+const oSchema = db.get_schema(oSchemaConfig)
+const Model = db.get_model(sCollection, oSchema)
 
 //================
 //    TRUNCATE 
@@ -56,6 +62,46 @@ const insert = (CModel,fnOnDone,...arObjects) => {
     CModel.insertMany(arObjects,fnOnDone)
 }//insert
 
+const x = (fnOnDone) => {
+     return (CModel) => {
+        return (...arObjects) => {
+            console.log("insert:")
+            return () => {CModel.insertMany(arObjects,fnOnDone)}
+        }
+     }
+}
+
+const insert_open = () => {
+
+    let oSeventies = new Model({
+        decade: '1970s',
+        artist: 'Debby Boone',
+        song: 'You Light Up My Life YYY',
+        weeksAtOne: 10
+    })
+
+    let oEighties = new Model({
+        decade: '1980s',
+        artist: 'Olivia Newton-John',
+        song: 'Physical YYY',
+        weeksAtOne: 10
+    })
+
+    let oNineties = new Model({
+        decade: '1990s',
+        artist: 'Mariah Carey',
+        song: 'One Sweet Day YYY',
+        weeksAtOne: 16
+    })
+    
+    
+    const ifopen = x(on_insert)(Model)(oSeventies,oEighties,oNineties)
+    console.log("ifopen",ifopen) 
+    //process.exit()
+    db.open(ifopen)
+}//insert_open
+
+
 //================
 //    UPDATE
 //================
@@ -73,7 +119,6 @@ const update = (CModel,fnOnDone) => {
     fnOnDone)//CModel.update
 
 }//update
-
 
 const on_dbopen = () => {
     console.log("on_opened:")
@@ -109,4 +154,5 @@ const on_dbopen = () => {
     drop_collection(on_dropped)
 }//on_dbopen
 
-db.open(on_dbopen)
+insert_open()
+//db.open(insert)
