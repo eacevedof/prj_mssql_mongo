@@ -21,7 +21,7 @@ const Model = db.get_model(sCollection, oSchema)
 //    TRUNCATE 
 //================
 const on_dropped = (oErr) => {
-    console.log("on_dropped:")
+    console.log("on_dropped:","oErr:",oErr)
     if(oErr) throw oErr
 }//on_dropped
 
@@ -33,13 +33,14 @@ const drop = (fnOnDone) => {
 //================
 //    FIND
 //================
-const on_found = (oErr, arDocs) => {
-    console.log("on_found:")
+const on_found = (oErr, arResult) => {
+    console.log("on_found:","oErr:",oErr,"arResult:",arResult)
     if(oErr) throw oErr
     
-    arDocs.forEach((oDoc) => {
+    arResult.forEach( oDoc => {
         console.log("oDoc: ",oDoc)
     })//forEach
+
 }//on_found
 
 const get_documents = (fnOnDone) => {
@@ -53,8 +54,7 @@ const get_documents = (fnOnDone) => {
 //================
 
 const on_insert = (oErr, arResult) => {
-    console.log("on_insert")
-    console.log("oErr:",oErr,"arResult:",arResult)
+    console.log("on_insert","oErr:",oErr,"arResult:",arResult)
 }
 
 const insert = (fnOnDone) => {
@@ -88,7 +88,7 @@ const insert = (fnOnDone) => {
 //    UPDATE
 //================
 const on_update = (oErr, iNumAffected, oRaw) => {
-    console.log("on_update:","oErr:",oErr,"oRaw:",oRaw)
+    console.log("on_update:","oErr:",oErr,"oRaw:",oRaw,"iNumAffected:",iNumAffected)
     if (oErr) return handleError(oErr)
 }//on_update
 
