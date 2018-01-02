@@ -7,7 +7,7 @@
     "start": "node server.js",
     "mssql": "node scripts/scp_mssql.js",
     "mongo": "node scripts/scp_mongo.js",
-    "price": "node scripts/scp_pricing.js"
+    "price": "node --max-old-space-size=4096 scripts/scp_pricing.js"
   },
   "dependencies": {
     "babel-preset-react": "^6.24.1",

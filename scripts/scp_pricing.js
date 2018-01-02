@@ -6,8 +6,8 @@ const oAsync = require("async")
 const oAcc = require("../models/model_accounts")
 const oProd = require("../models/model_products")
 const oAccProd = require("../models/model_accprods")
-const oPrior = require("../models/model_priority")
-const oStruct = require("../models/model_structure")
+const oPrior = require("../models/model_priorities")
+const oStruct = require("../models/model_structures")
 const oConds = require("../models/model_conditions")
 
 const oPrice = require("../components/component_pricing")
@@ -18,15 +18,15 @@ oAsync.parallel({
         struct: function(fnCallback){oStruct.get_documents(fnCallback)},        
         accprod : function(fnCallback){oAccProd.get_documents(fnCallback)},
 
-  /*       acc : function(fnCallback){oAcc.get_documents("OVMN02",fnCallback)},
+        acc : function(fnCallback){oAcc.get_documents("OVMN02",fnCallback)},
         prod: function(fnCallback){oProd.get_documents("OVMN02",fnCallback)},
-        conds: function(fnCallback){oConds.get_documents(fnCallback)} */
+        conds: function(fnCallback){oConds.get_documents(fnCallback)} 
     },function(oError,oR){
         console.log("\nresult in parallel")
         console.log("process time:",process.uptime())
-        console.log("iprior:",oR.prior.length,"struct:",oR.struct.length,"accprod:",oR.accprod.length)
+        //console.log("iprior:",oR.prior.length,"struct:",oR.struct.length,"accprod:",oR.accprod.length)
         //console.log("iprior:",oR.prior.length,"struct:",oR.struct.length,"conds:",oR.conds.length,"accprod:",oR.accprod.length,"acc:",oR.acc.length,"prod:",oR.prod.length)
-        process.exit()
+        //process.exit()
 
         let arLoop = oR.accprod.map(o => o.toObject())
         let arAccounts = oPrice.account.get_minified(oR.acc, oPrice.account.get_unique(oR.accprod))
@@ -48,19 +48,20 @@ oAsync.parallel({
         let l = arLoop.length
         let lp = arPriority.length
 
-
-        console.log("\nstart loop:")
+        console.log("\nstart loop:","l:",l,"lp:",lp)
         for(let i=0; i<l; i++ ){
-            console.log("lp:",lp)
-            let o = arLoop[i]
             console.log("i:",i)
-            //let oAccount = oPrice.account.get_vars(arAccounts,o.code_account,"OVMN02")
-            //let oProduct = oPrice.product.get_vars(arProducts,o.code_product,"OVMN02")
+            let o = arLoop[i]
+            let oAccount = oPrice.account.get_vars(arAccounts,o.code_account,"OVMN02")
+            let oProduct = oPrice.product.get_vars(arProducts,o.code_product,"OVMN02")
+            //console.log("oAccount:",oAccount,"oProduct:",oProduct)
+            //process.exit()
+            
             for(let p=0; p<lp; p++ ){
                 console.log("p:",p)
                 let oP = arPriority[p]
                 let arStr = arStructure.find(o => (o.secuence === oP.secuence))
-                console.log("arStr:",arStr)
+                console.log("\narStr:\n",arStr)
             }//for prior
         }//for Loop
 
