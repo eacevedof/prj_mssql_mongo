@@ -75,11 +75,11 @@ const update = (CModel,fnOnDone) => {
 }//update
 
 
-const on_dbopen = ()=>{
+const on_dbopen = () => {
     console.log("on_opened:")
+
     let oSchema = db.get_schema(oSchemaConfig)
     let Model = db.get_model(sCollection, oSchema)
-
 
     let oSeventies = new Model({
         decade: '1970s',
@@ -106,8 +106,7 @@ const on_dbopen = ()=>{
     insert(Model,on_insert,oSeventies,oEighties,oNineties)
     update(Model,on_update)
     get_documents(Model,on_found)
-
-    //drop_collection(on_dropped)
+    drop_collection(on_dropped)
 }//on_dbopen
 
 db.open(on_dbopen)
