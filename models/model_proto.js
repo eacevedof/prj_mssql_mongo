@@ -110,4 +110,4 @@ const on_dbopen = ()=>{
     //drop_collection(on_dropped)
 }//on_dbopen
 
-db.conn.once("open",on_dbopen)
+db.open(on_dbopen)
