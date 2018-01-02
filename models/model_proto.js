@@ -80,64 +80,25 @@ const insert = (fnOnDone) => {
         weeksAtOne: 16
     })
 
-    const on_open = crud.insert(Model)(oSeventies,oEighties,oNineties)(fnOnDone)
-    db.open(on_open)
+    let fn = crud.insert(Model)(oSeventies,oEighties,oNineties)(fnOnDone)
+    db.open(fn)
 }//insert_open
-
 
 //================
 //    UPDATE
 //================
 const on_update = (oErr, iNumAffected, oRaw) => {
-    console.log("on_update:")
+    console.log("on_update:","oErr:",oErr,"oRaw:",oRaw)
     if (oErr) return handleError(oErr)
-    //imprime el listado  
-    //get_documents(CModel,on_found)
 }//on_update
 
-const update = (CModel,fnOnDone) => {
+const update = (fnOnDone) => {
     console.log("update:")
-    CModel.update({ song: 'One Sweet Day'}, 
-    { $set: { artist: 'Mariah Carey ft. Boyz II Men yyyy'} }, 
-    fnOnDone)//CModel.update
-
+    let fn = crud.update(Model)({ $set: { artist: 'Mariah Carey ft. Boyz II Men yyyy'}})({ song: 'One Sweet Day'})(fnOnDone)
+    db.open(fn)
 }//update
-
-const on_dbopen = () => {
-    console.log("on_opened:")
-
-    let oSchema = db.get_schema(oSchemaConfig)
-    let Model = db.get_model(sCollection, oSchema)
-
-    let oSeventies = new Model({
-        decade: '1970s',
-        artist: 'Debby Boone',
-        song: 'You Light Up My Life',
-        weeksAtOne: 10
-    })
-
-    let oEighties = new Model({
-        decade: '1980s',
-        artist: 'Olivia Newton-John',
-        song: 'Physical',
-        weeksAtOne: 10
-    })
-
-    let oNineties = new Model({
-        decade: '1990s',
-        artist: 'Mariah Carey',
-        song: 'One Sweet Day',
-        weeksAtOne: 16
-    })
-
-    //CRUD
-    insert(Model,on_insert,oSeventies,oEighties,oNineties)
-    update(Model,on_update)
-    get_documents(Model,on_found)
-    drop_collection(on_dropped)
-}//on_dbopen
 
 insert(on_insert)
 drop(on_dropped)
 get_documents(on_found)
-//db.open(insert)
+update(on_update)

@@ -9,12 +9,11 @@ const oCrud = {
                         (sCollection) => 
                             (fnOnDone)=>
                                 ()=>{console.log("drop_collection:");db.get_collection(sCollection).drop(fnOnDone)},
-                                
+
     get_documents : (CModel) => (oCond) =>(oSort)=> (fnOnDone)=>()=>{CModel.find(oCond).sort(oSort).exec(fnOnDone)},
     
-    update : () => ()=>{},
+   update : (CModel) => (fnOnDone) => (oSet) => (oCond) => {console.log("update:"); CModel.update(oCond,oSet,fnOnDone)}
 
-    update : () => ()=>{},    
 }//oCrud
 
 module.exports = oCrud
