@@ -1,7 +1,7 @@
 
 const oConfig = require("../config/conf_mongoose")
-//const mongoose = require("mongoose").set("debug",true)
-const mongoose = require("mongoose")
+const mongoose = require("mongoose").set("debug",true)
+//const mongoose = require("mongoose")
 
 mongoose.Promise = global.Promise
 mongoose.connect(oConfig.url, {useMongoClient: true} )
