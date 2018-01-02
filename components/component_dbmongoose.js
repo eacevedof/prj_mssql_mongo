@@ -28,7 +28,7 @@ const oDb = {
                 }//on_close
                 )//close()    
             },
-    open :(fnOnDone) => {db.once("open",fnOnDone)}
+    open :(fnOnDone) => {db.once("open",fnOnDone)},
 }
 
 module.exports = oDb

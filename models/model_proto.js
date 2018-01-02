@@ -1,6 +1,7 @@
 //example: connect mongo
 //https://github.com/mongolab/mongodb-driver-examples/blob/master/nodejs/mongooseSimpleExample.js
 const db = require("../components/component_dbmongoose")
+const crud = require("../components/component_crud")
 
 //================
 //    MODEL 
@@ -22,14 +23,12 @@ const Model = db.get_model(sCollection, oSchema)
 const on_dropped = (oErr) => {
     console.log("on_dropped:")
     if(oErr) throw oErr
-    db.close()
 }//on_dropped
 
-
-const drop_collection = (fnOnDone) => {
-    console.log("drop_collection:")
-    db.get_collection(sCollection).drop(fnOnDone)
-}//drop_collection
+const drop = (fnOnDone) => {
+    let fn = crud.drop_collection(db)(sCollection)(fnOnDone)
+    db.open(fn)
+}
 
 //================
 //    FIND
@@ -43,9 +42,10 @@ const on_found = (oErr, arDocs) => {
     })//forEach
 }//on_found
 
-const get_documents = (CModel,fnOnDone) => {
+const get_documents = (fnOnDone) => {
     console.log("get_documents:")
-    CModel.find({ weeksAtOne: { $gte: 10} }).sort({ decade: 1}).exec(fnOnDone)
+    let fn = crud.get_documents(Model)({ weeksAtOne: { $gte: 10} })({ decade: 1})(fnOnDone)
+    db.open(fn)
 }//get_documents
 
 //================
@@ -57,21 +57,7 @@ const on_insert = (oErr, arResult) => {
     console.log("oErr:",oErr,"arResult:",arResult)
 }
 
-const insert = (CModel,fnOnDone,...arObjects) => {
-    console.log("insert:")
-    CModel.insertMany(arObjects,fnOnDone)
-}//insert
-
-const x = (fnOnDone) => {
-     return (CModel) => {
-        return (...arObjects) => {
-            console.log("insert:")
-            return () => {CModel.insertMany(arObjects,fnOnDone)}
-        }
-     }
-}
-
-const insert_open = () => {
+const insert = (fnOnDone) => {
 
     let oSeventies = new Model({
         decade: '1970s',
@@ -93,12 +79,9 @@ const insert_open = () => {
         song: 'One Sweet Day YYY',
         weeksAtOne: 16
     })
-    
-    
-    const ifopen = x(on_insert)(Model)(oSeventies,oEighties,oNineties)
-    console.log("ifopen",ifopen) 
-    //process.exit()
-    db.open(ifopen)
+
+    const on_open = crud.insert(Model)(oSeventies,oEighties,oNineties)(fnOnDone)
+    db.open(on_open)
 }//insert_open
 
 
@@ -154,5 +137,7 @@ const on_dbopen = () => {
     drop_collection(on_dropped)
 }//on_dbopen
 
-insert_open()
+insert(on_insert)
+drop(on_dropped)
+get_documents(on_found)
 //db.open(insert)
