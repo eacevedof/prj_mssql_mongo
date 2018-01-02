@@ -1,14 +1,14 @@
 const oConfig = require("../config/conf_mongoose")
 const oMongoose = require("mongoose").set("debug",true)
 
-const sName = "priority"
+const sName = "priorities"
 const oSchema = {
     secuence : "string",
     code_type : "string",
     orden : "string",
     priority : "string",
     agrupation : "string",
-    type_based : "string"    
+    type_based : String   
 }//oSchema
 
 const oConn = oMongoose.createConnection(oConfig.url,{useMongoClient: true});

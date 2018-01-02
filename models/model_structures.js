@@ -1,7 +1,7 @@
 const oMongoose = require("mongoose").set("debug",true)
 const oConfig = require("../config/conf_mongoose")
 
-const sName = "structure"
+const sName = "structures"
 const oSchema = {
     _id: oMongoose.Schema.Types.ObjectId,
     secuence: String,

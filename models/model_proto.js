@@ -6,15 +6,20 @@ const crud = require("../components/component_crud")
 //================
 //    MODEL 
 //================
-const sCollection = "songs"
+const sCollection = "structure"
 const oSchemaConfig = {
-    decade: String,
-    artist: String,
-    song: String,
-    weeksAtOne: Number
-}
+    code : String,
+    code_ofclient: String,
+    code_country: String,
+    code_ofclient_h1: String,
+    code_ofclient_h2: String,
+    code_ofclient_h3: String,
+    code_sales_org: String,
+    tax: String,
+    rec: String
+}//oSchema
 
-const oSchema = db.get_schema(oSchemaConfig)
+const oSchema = db.get_schema(oSchemaConfig, { collection:sCollection })
 const Model = db.get_model(sCollection, oSchema)
 
 //================
@@ -45,7 +50,8 @@ const on_found = (oErr, arResult) => {
 
 const get_documents = (fnOnDone) => {
     console.log("get_documents:")
-    let fn = crud.get_documents(Model)({ weeksAtOne: { $gte: 10} })({ decade: 1})(fnOnDone)
+    //let fn = crud.get_documents(Model)({ weeksAtOne: { $gte: 10} })({ decade: 1})(fnOnDone)
+    let fn = crud.get_documents(Model)({})({})(fnOnDone)
     db.open(fn)
 }//get_documents
 
@@ -98,7 +104,7 @@ const update = (fnOnDone) => {
     db.open(fn)
 }//update
 
-insert(on_insert)
-drop(on_dropped)
+//insert(on_insert)
+//drop(on_dropped)
 get_documents(on_found)
-update(on_update)
+//update(on_update)

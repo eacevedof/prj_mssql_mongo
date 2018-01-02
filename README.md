@@ -7,8 +7,8 @@ cd /c/xampp/htdocs/mongodb/3.6.0/bin/
 mongoimport --db flamagas --collection accounts --file /c/xampp/htdocs/prj_mssql_mongo/data/accounts.js
 
 mongoimport --db flamagas --collection products --file /c/xampp/htdocs/prj_mssql_mongo/data/products.js
-mongoimport --db flamagas --collection priority --file /c/xampp/htdocs/prj_mssql_mongo/data/priority.js
-mongoimport --db flamagas --collection structure --file /c/xampp/htdocs/prj_mssql_mongo/data/structure.js
+mongoimport --db flamagas --collection priorities --file /c/xampp/htdocs/prj_mssql_mongo/data/priority.js
+mongoimport --db flamagas --collection structures --file /c/xampp/htdocs/prj_mssql_mongo/data/structure.js
 mongoimport --db flamagas --collection conditions --file /c/xampp/htdocs/prj_mssql_mongo/data/conditions.js
 mongoimport --db flamagas --collection accproducts --file /c/xampp/htdocs/prj_mssql_mongo/data/accprod.js
 
