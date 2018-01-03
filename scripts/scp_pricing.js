@@ -65,10 +65,10 @@ oAsync.parallel({
             //process.exit()
             for(let iP=1; iP<4; iP++){
                 let arSecPrior = arPriority.filter(o => o.priority == iP)
-                let lp = arSecPrior.length
+                let ls = arSecPrior.length //num de secuencias
 
-                for(let p=0; p<lp; p++){
-                    let sSecuence = arSecPrior[p].secuence
+                for(let iS=0; iS<ls; iS++){
+                    let sSecuence = arSecPrior[iS].secuence
                     //recupero las estructuras por "code_table" de una secuencia
                     let arStructT = arStructure.filter(oStr => (oStr.secuence === sSecuence))
                     
