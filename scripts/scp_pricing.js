@@ -53,7 +53,7 @@ oAsync.parallel({
         let ll = arLoop.length
         //let lp = arPriority.length
         
-        console.log("\nstart loop:","l:",l,"lp:",lp)
+        //console.log("\nstart loop:","ll:",ll,"lp:",lp)
 
         let arFound = []
         for(let i=0; i<ll; i++ ){
@@ -65,7 +65,7 @@ oAsync.parallel({
             //process.exit()
             for(let iP=1; iP<4; iP++){
                 let arSecPrior = arPriority.filter(o => o.priority == iP)
-                let lp = arTmp.length
+                let lp = arSecPrior.length
 
                 for(let p=0; p<lp; p++){
                     let sSecuence = arSecPrior[p].secuence
