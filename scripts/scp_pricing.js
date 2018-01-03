@@ -67,33 +67,41 @@ oAsync.parallel({
             for(let p=0; p<lp; p++ ){
                 //console.log("p:",p)
                 let oP = arPriority[p]
+                let sSecuence = oP.secuence
 
                 for(let iP=1; iP<4; iP++){
-
                     //recupero las (tablas) structuras de una secuencia
-                    let arStruct = arStructure.filter(oStr => (oStr.secuence === oP.secuence && oStr.priority==iP))
+                    let arStruct = arStructure.filter(oStr => (oStr.secuence === sSecuence && oStr.priority==iP))
+                    
                     let lS = arStruct.length
-                    let oFound = null
+                    let isFound = false
                     let oStruct = null
+                    
                     //arStruct
                     for(let s=0; s<lS; s++){
                         oStruct = arStruct[s]
                         let sToken = oPrice.struct.get_token(oStruct,oAccount,oProduct)
-                        oFound = arConds.find((o)=>(o.secuence === oStruct.secuence 
+                        let oFound = arConds.find((o)=>(o.secuence === oStruct.secuence 
                                                         && o.code_table === oStruct.code_table 
                                                         && o.valuekey === sToken
+                                                        //Falta fecha!!!
                                                     ))
-                        if(!oFound && (oStruct.secuence.includes("ZPUC1") || oStruct.secuence.includes("ZPUC2")
-                            || oStruct.secuence.includes("ZPUM"))
-                        ){
+                        //si se ha encontrado se guarda el primero y se sale
+                        if(oFound) 
+                        {
+                            isFound = true
+                            arFound.push({condition:oFound,account:oAccount.code,product:oProduct.code})
                             break
                         }
-                        arFound.push({condition:oFound,account:oAccount.code,product:oProduct.code})
                     }//for conditions
 
-                    if(!oFound && oStruct.secuence==="ZDPM"){
+                    //si no se ha encontrado y es secuencia de precio se debe saltar a la siguiente prioridad
+                    if(!isFound && (sSecuence.includes("ZPUC1") || sSecuence.includes("ZPUC2")
+                        || sSecuence.includes("ZPUM"))
+                    ){
                         break
-                    }
+                    }                    
+
                 }//for iPriors
             }//for priorities
         }//for Loop
