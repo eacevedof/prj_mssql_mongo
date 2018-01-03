@@ -31,7 +31,8 @@ const oExport = {
         oConn.once('open', () => {
             console.log(sName," opened!")
             //oConn.db.listCollections({name:sName}).next(function(err, collinfo) {console.log(collinfo)});
-            Model.find((oError, arRows) => {
+            Model.find({},null,{sort:{secuence:1,code_table:1,orden:1}}
+                ,(oError, arRows) => {
                 if (oError) {
                     on_error(oError,fnCallback)
                 } else {
