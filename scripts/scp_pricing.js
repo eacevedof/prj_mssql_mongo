@@ -97,7 +97,8 @@ const on_result = (oError, oR) => {
             }//for arSecPrior
 
         }//for (1..3)
-        console.log("process time:",process.uptime())
+
+        console.log("process time:",process.uptime(),"\narFound:",arFound)
     }//for Loop
     console.log("arFound",arFound)
 }//fn: on_result
