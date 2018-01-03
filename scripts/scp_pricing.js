@@ -49,7 +49,7 @@ const on_result = (oError, oR) => {
 
     let arFound = []
     for(let i=0; i<ll; i++ ){
-        //console.log("i:",i)
+        console.log("ioop:",i)
         let o = arLoop[i]
         let oAccount = oPrice.account.get_vars(arAccounts,o.code_account,"OVMN02")
         let oProduct = oPrice.product.get_vars(arProducts,o.code_product,"OVMN02")
@@ -97,8 +97,8 @@ const on_result = (oError, oR) => {
             }//for arSecPrior
 
         }//for (1..3)
+        console.log("process time:",process.uptime())
     }//for Loop
-
     console.log("arFound",arFound)
 }//fn: on_result
 
