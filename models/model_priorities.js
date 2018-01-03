@@ -21,13 +21,14 @@ const oExport = {
      get_documents : function(fnCallback) {  
         oConn.once('open', () => {
             console.log(sName," opened!")
-            Model.find((oError, arRows) => {
-                if (oError) {
-                    on_error(oError,fnCallback)
-                } else {
-                    oMongoose.connection.close();
-                    fnCallback("",arRows)
-                }
+            Model.find({},null,{sort:{priority:1,orden:1}}
+                ,(oError, arRows) => {
+                    if (oError) {
+                        on_error(oError,fnCallback)
+                    } else {
+                        oMongoose.connection.close();
+                        fnCallback("",arRows)
+                    }
             }) // end Model.find 
         }) // end db.once open 
     },//get_loops

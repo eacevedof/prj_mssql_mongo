@@ -38,30 +38,57 @@ oAsync.parallel({
 
         //pricing
         let arPriority = oR.prior.map(o => o.toObject())
-        console.log("arPriority:",arPriority)
+                            //.sort((o1,o2)=>o1.priority - o2.priority)
+                            //.sort((o1,o2)=>o1.orden - o2.orden)
+        //console.log("arPriority:",arPriority)
+        //process.exit()
         let arStructure = oR.struct.map(o => o.toObject())
+        //console.log("arStructure:",arStructure)
+        //process.exit()
         let arConds = oR.conds.map(o => o.toObject())
 
         
-        console.log("loop.length:",arLoop.length)
-        console.log("process time:",process.uptime())
+        //console.log("loop.length:",arLoop.length)
+        //console.log("process time:",process.uptime())
         let l = arLoop.length
         let lp = arPriority.length
-
+        
         console.log("\nstart loop:","l:",l,"lp:",lp)
+
+        let arFound = []
         for(let i=0; i<l; i++ ){
-            console.log("i:",i)
+            //console.log("i:",i)
             let o = arLoop[i]
             let oAccount = oPrice.account.get_vars(arAccounts,o.code_account,"OVMN02")
             let oProduct = oPrice.product.get_vars(arProducts,o.code_product,"OVMN02")
             //console.log("oAccount:",oAccount,"oProduct:",oProduct)
             //process.exit()
-            
+
             for(let p=0; p<lp; p++ ){
-                console.log("p:",p)
+                //console.log("p:",p)
                 let oP = arPriority[p]
-                let arStr = arStructure.find(o => (o.secuence === oP.secuence))
-                console.log("\narStr:\n",arStr)
+                //recupero las (tablas) structuras de una secuencia
+                let arStruct = arStructure.filter(oStr => (oStr.secuence === oP.secuence))
+                let lS = arStruct.length
+                
+                //arStruct
+                for(let s=0; s<lS; s++){
+                    let oStruct = arStruct[s]
+                    let sToken = oPrice.struct.get_token(oTable,oAccount,oProduct)
+                    let oFound = arConds.find((o)=>(o.secuence === oStruct.secuence 
+                                                    && o.code_table === oStruct.code_table 
+                                                    && o.valuekey === sToken
+                                                ))
+                    if(oFound)
+                    {
+                    console.log("oFound:",oFound)
+                    process.exit()
+                    }
+                    
+                }//for conditions
+                //console.log("\narTable:\n",arStruct)
+                //process.exit()
+                //console.log("\narStr:\n",arStr)
             }//for prior
         }//for Loop
 
