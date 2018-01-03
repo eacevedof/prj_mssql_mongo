@@ -82,8 +82,8 @@ const on_result = (oError, oR) => {
                     {
                         isFound = true
                         arFound.push({condition:oFound,account:oAccount.code,product:oProduct.code})
-                        console.log("oFound",oFound)
-                        process.exit()
+                        //console.log("oFound",oFound)
+                        //process.exit()
                         break
                     }
                 }//for arStructT
@@ -98,6 +98,8 @@ const on_result = (oError, oR) => {
 
         }//for (1..3)
     }//for Loop
+
+    console.log("arFound",arFound)
 }//fn: on_result
 
 oAsync.parallel({
